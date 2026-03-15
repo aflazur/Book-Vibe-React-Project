@@ -1,0 +1,49 @@
+import React from 'react';
+import { useLoaderData, useParams } from 'react-router';
+
+const BookDetails = () => {
+    const { id } = useParams();
+    const bookId = parseInt(id)
+    const data = useLoaderData();
+    const singleBook = data.find(book => book.bookId === bookId)
+    const { bookName, image, author,category,review,tags,rating,yearOfPublishing, publisher,totalPages} = singleBook;
+    return (
+        <div className="card lg:card-side bg-base-100 shadow-sm mt-[52px] mb-[160px]">
+            <figure className='bg-gray-100 border-0 rounded-2xl'>
+                <img className='w-[425px] h-[564px] p-[75px]'
+                    src={image}
+                    alt="Album" />
+            </figure>
+            <div className="card-body">
+                <h2 className="card-title text-3xl">{bookName}</h2>
+                <p className='text-xl'>By : {author}</p>
+
+                <div className=" flex border-y-1 border-dashed border-gray-200">
+                    <p className=' p-4 text-xl'>{category}</p>                   
+                </div>
+
+                <p className='w-150 '><span className='font-bold text-xl'>Review : </span>{review}</p>
+
+                <div className='flex text-green-500 gap-2 text-center text-xl my-4 border-b-1 border-dashed border-gray-200 pb-6'> <span className='text-black font-bold'>Tag :</span>
+                    {
+                        tags.map(tag => <p className='px-4 py-2 bg-gray-100 border-0 rounded-2xl'>#{tag}</p>
+                   )
+                    }
+                </div>
+
+                <p className='flex justify-between'><span>Number of Pages:</span><span className='font-bold'>{totalPages}</span></p>
+                <p className='flex justify-between'><span >Publisher:</span> <span className='font-bold'>{publisher}</span></p>
+                <p className='flex justify-between'><span>Year of Publishing:</span> <span className='font-bold'>{yearOfPublishing}</span></p>
+                <p className='flex justify-between'><span>Rating:</span> <span className='font-bold'>{rating}</span></p>
+
+
+                <div className="card-actions mt-4">
+                    <button className="btn ">Read</button>
+                    <button className="btn btn-primary">Wishlist</button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default BookDetails;
